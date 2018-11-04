@@ -1,0 +1,35 @@
+﻿@model List<Order>
+
+@{
+    var title = "Заказы";
+    ViewData["title"] = title;
+}
+
+<h2>@title</h2>
+
+@foreach (var order in Model)
+{
+    <div>
+        <h3>Заказ № @order.Number</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Название продукта</th>
+                    <th>Цена</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in order.Items)
+                {
+                    <tr>
+                        <td>@item.Product.Name</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
