@@ -23,9 +23,13 @@ namespace Shop.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            List<Order> orders = _db.Orders.ToList();
+            List<Order> orders = _db.Orders
+                                    .Include( order => order.Items)
+                                    .ThenInclude( orderItems => orderItems.Product)
+                                    .ToList();
 
-            //var iwm = new IndexViewModel { OrderList = orders, OrderItems = orderItems };
+           // var orderSum = 0;
+          //  var viewModel = new IndexViewModel { OrderList = orders, OrderSum = orderSum };
 
             return View(orders);
         }

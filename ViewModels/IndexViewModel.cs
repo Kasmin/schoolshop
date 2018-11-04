@@ -11,7 +11,7 @@ namespace Shop.Models
     {
         // public int OrderNumber { get; set; }
         public List<Order> OrderList { get; set; }
-        public List<OrderItem> OrderItems { get; set; }
-        // public decimal OrderSum { get; set; }
+        //public List<OrderItem> OrderItems { get; set; }
+        public decimal OrderSum { get; set; }
     }
 }

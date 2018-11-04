@@ -3,33 +3,41 @@
 @{
     var title = "Заказы";
     ViewData["title"] = title;
+    decimal orderSum = 0;
 }
 
 <h2>@title</h2>
 
 @foreach (var order in Model)
 {
+    orderSum = 0;     
     <div>
         <h3>Заказ № @order.Number</h3>
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Название продукта</th>
+                    <th>Количество</th>
                     <th>Цена</th>
-                    <th></th>
+                    <th>Стоимость</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in order.Items)
                 {
-                    <tr>
-                        <td>@item.Product.Name</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                        <tr>
+                            <td>@item.Product.Name</td>
+                            <td>@item.Count</td>
+                            <td>@item.Product.Price</td>
+                            <td>@(item.Product.Price * item.Count)</td>
+                        </tr>
+
+                    orderSum = orderSum + item.Product.Price * item.Count;
+
                 }
             </tbody>
         </table>
+        <h3>Сумма заказа: @orderSum</h3>
     </div>
 }
 
