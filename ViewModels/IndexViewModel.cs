@@ -11,7 +11,7 @@ namespace Shop.Models
 
         public IndexViewModel(string orderNumber, List<OrderItem> orderItems)
         {
-            OrderSum = orderItems.Select(x => x.Product.Price).Sum();
+            OrderSum = orderItems.Select(x => x.Product.Price * x.Count).Sum();
             OrderItems = orderItems;
             OrderNumber = orderNumber;
         }
