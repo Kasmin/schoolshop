@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop.Data;
 using Shop.Models;
-using Shop.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,17 +19,17 @@ namespace Shop.Controllers
             _db = db;
         }
         // GET: /<controller>/
-        public IActionResult Index()
+        [Route("index2")]
+        public async Task<IActionResult> Index()
         {
-            List<Order> orders = _db.Orders
+            List<Order> orders = await _db.Orders
                                     .Include( order => order.Items)
                                     .ThenInclude( orderItems => orderItems.Product)
-                                    .ToList();
+                                    .ToListAsync();
+            List<IndexViewModel> viewModel = orders
+                .Select(x => new IndexViewModel(x.Number, x.Items)).ToList();
 
-           // var orderSum = 0;
-          //  var viewModel = new IndexViewModel { OrderList = orders, OrderSum = orderSum };
-
-            return View(orders);
+            return View(viewModel);
         }
     }
 }

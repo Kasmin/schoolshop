@@ -1,18 +1,16 @@
-﻿@model List<Order>
+﻿@model List<IndexViewModel>
 
 @{
     var title = "Заказы";
     ViewData["title"] = title;
-    decimal orderSum = 0;
 }
 
 <h2>@title</h2>
 
 @foreach (var order in Model)
 {
-    orderSum = 0;     
     <div>
-        <h3>Заказ № @order.Number</h3>
+        <h3>Заказ № @order.OrderNumber</h3>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -23,21 +21,21 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in order.Items)
+                @foreach(var item in order.OrderItems)
                 {
-                        <tr>
-                            <td>@item.Product.Name</td>
-                            <td>@item.Count</td>
-                            <td>@item.Product.Price</td>
-                            <td>@(item.Product.Price * item.Count)</td>
-                        </tr>
-
-                    orderSum = orderSum + item.Product.Price * item.Count;
-
+                    <tr>
+                        <td>@item.Product.Name</td>
+                        <td>@item.Count</td>
+                        <td>@item.Product.Price</td>
+                        <td>@(item.Product.Price * item.Count)</td>
+                    </tr>
                 }
+
             </tbody>
         </table>
-        <h3>Сумма заказа: @orderSum</h3>
+        <h3>Сумма заказа: @order.OrderSum</h3>
     </div>
+    <hr />
+    <hr />
 }
 

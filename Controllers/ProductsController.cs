@@ -55,5 +55,16 @@ namespace Shop.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        [Route("delete/{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            Product product = await _db.Products.FirstOrDefaultAsync(x => x.Id == id);
+            _db.Products.Remove(product);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
     }
 }
